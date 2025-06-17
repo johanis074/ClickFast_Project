@@ -1,0 +1,19 @@
+name: Deploy ClickFast
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t clickfast .
+
+      - name: Run container
+        run: docker run -d -p 80:80 clickfast
